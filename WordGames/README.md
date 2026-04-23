@@ -7,7 +7,7 @@ The usage should be obvious from the app itself. There is currently one mode to 
 # THINGS YET TO BE DONE:
 
 1. Finish *Wordle* mode
-2. Implement a game mode where the player must create new words from an existing one.
+2. Implement a game mode where the player must create new words from an existing one. ✅
 3. Implement a game mode where the player must shorten a long word to the shortest one within it.
 4. Think of more game modes.
 5. Get localization to work
