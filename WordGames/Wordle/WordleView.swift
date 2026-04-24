@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WordleView: View {
-    @Environment(\.colorScheme) var colorScheme
     @State private var chosenWord = ChosenWord()
     @State private var rows: Array<FieldRow> = []
     @State private var isSolved = false
@@ -40,7 +39,7 @@ struct WordleView: View {
     }
     
     func createRows() -> Array<FieldRow>{
-        [FieldRow(colorScheme), FieldRow(colorScheme), FieldRow(colorScheme), FieldRow(colorScheme), FieldRow(colorScheme)]
+        [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     }
     
     func resetGame(){

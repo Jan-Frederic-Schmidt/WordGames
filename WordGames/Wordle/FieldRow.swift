@@ -16,23 +16,13 @@ class FieldRow: Identifiable{
                 guess = guess.uppercased()
             }
         }
-        var color: Color
-        
-        init(_ colorScheme: ColorScheme){
-            self.color = colorScheme == .light ? .white : .black
-        }
+        var color = Color.white.opacity(0)
     }
     
-    var colorScheme: ColorScheme
     var id = UUID()
-    var fields: Array<Field>
+    var fields = [Field(), Field(), Field(), Field(), Field()]
     var locked = false
     var isSolved = false
-    
-    init(_ colorScheme: ColorScheme){
-        self.colorScheme = colorScheme
-        self.fields = [Field(colorScheme), Field(colorScheme), Field(colorScheme), Field(colorScheme), Field(colorScheme)]
-    }
     
     //THE FOLLOWING FUNCTION WAS MADE BY AI, SADLY
     
