@@ -12,6 +12,7 @@ struct RowView: View {
     @State public var Row: FieldRow
     @Binding public var outsideChosenWord: ChosenWord
     @Binding public var isSolved: Bool
+    @Binding public var isWrong: Bool
 
     var body: some View {
         HStack{
@@ -24,7 +25,7 @@ struct RowView: View {
                 //frame styling
                     .frame(maxWidth: 110, maxHeight: 110)
                     .aspectRatio(1/1, contentMode: .fit)
-                    .glassEffect(.regular.tint(Row.fields[number].color).interactive(), in: .rect(cornerRadius: 20))
+                    .glassEffect(.regular.tint(Row.fields[number].color).interactive(), in: .rect(cornerRadius: 10))
                 //executing code
                     .disabled(Row.locked)
                     .onReceive(Just(Row.fields[number].guess)){ _ in oneCharacter(input: &Row.fields[number].guess) }
@@ -33,6 +34,7 @@ struct RowView: View {
                             if Row.isRealWord(){
                                 outsideChosenWord.guesses += 1
                                 Row.locked = true
+                                isWrong = outsideChosenWord.isWrong
                                 Row.compareWords(outsideChosenWord.characterList)
                                 isSolved = Row.isSolved
                             }

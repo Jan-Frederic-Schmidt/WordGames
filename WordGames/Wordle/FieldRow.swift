@@ -55,6 +55,8 @@ class FieldRow: Identifiable{
                     if let firstUnmatchedIndex = comLetters.firstIndex(where: { $0 == guessChar && !usedIndices.contains(comLetters.firstIndex(of: $0)!) }) {
                         usedIndices.insert(firstUnmatchedIndex)
                     }
+                } else {
+                    fields[i].color = .gray
                 }
             }
         }
@@ -68,7 +70,7 @@ class FieldRow: Identifiable{
             word += field.guess
         }
         
-        return WordScrambleView().isReal(word.capitalizingFirstLetter())
+        return isReal(word.capitalizingFirstLetter())
     }
     
 }

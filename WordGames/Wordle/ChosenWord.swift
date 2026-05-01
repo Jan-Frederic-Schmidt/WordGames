@@ -17,6 +17,9 @@ struct ChosenWord{
     }
     var guesses = 0
     var characterList: Array<String>
+    var isWrong: Bool {
+        guesses >= 5
+    }
     
     init(){
         word = wordList.randomElement()!

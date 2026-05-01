@@ -8,29 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var statistic: Statistic = getStatistic()
+    
     var body: some View {
-            TabView{
-                WordleView()
-                    .tabItem{
-                        Label("Wordle", systemImage: "w.square.fill")
-                    }
-                
-                WordScrambleView()
-                    .tabItem{
-                        Label("WordScramble", systemImage: "textformat.characters.arrow.left.and.right")
-                    }
-                
-                ProgressView()
-                    .tabItem{
-                        Label("Stats", systemImage: "chart.xyaxis.line")
-                    }
-                
-                ProgressView()
-                    .tabItem{
-                        Label("Settings", systemImage: "gear")
-                    }
-            }
+        TabView{
+            WordleView(stat: $statistic)
+                .tabItem{
+                    Label("Wordle", systemImage: "w.square.fill")
+                }
+            
+            StatView(stat: statistic)
+                .tabItem{
+                    Label("Stats", systemImage: "chart.xyaxis.line")
+                }
+            
+            ProgressView()
+                .tabItem{
+                    Label("Settings", systemImage: "gear")
+                }
         }
+    }
 }
 
 #Preview {

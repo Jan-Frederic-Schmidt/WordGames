@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Bundle{
     func chooseWord(for name: String, withLenght length: Int) -> Set<String>{
@@ -14,7 +15,7 @@ extension Bundle{
                     
                 let allWords = wordlist.components(separatedBy: .newlines)
                     
-                return Set(allWords.filter { $0.count == length })
+                return Set(allWords.filter { $0.count == length && !$0.localizedStandardContains("ß")})
                     
                 } else {
                     fatalError("Could not import list of words")
@@ -45,3 +46,21 @@ extension String {
       self = self.capitalizingFirstLetter()
     }
 }
+
+func getStatistic() -> Statistic{
+    if let data = UserDefaults.standard.object(forKey: "Statistic"){
+        if let object = try? JSONDecoder().decode(Statistic.self, from: data as! Data){
+            return object
+        }
+    }
+    
+    return Statistic()
+}
+
+func isReal(_ word: String) -> Bool{
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "de")
+        
+        return misspelledRange.location == NSNotFound
+    }
