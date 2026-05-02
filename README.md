@@ -10,7 +10,8 @@ The usage should be obvious from the app itself. In *Wordle* you have to guess a
 2. Actually check the results 🔜
 3. Save data ✅
 4. Create the settings pane 🔜
-5. Sync with iCloud
+5. Check the word list
 6. Get localization to work
 7. Clean up the code (definitely needed)
 8. Launch on the App Store?
+9. Sync with iCloud
