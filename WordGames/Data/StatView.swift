@@ -17,11 +17,11 @@ struct StatView: View {
                 Section{
                     Text("\(stat.timesPlayed) Mal gespielt")
                     Text("Du hast eine Streak von \(stat.streak)")
-                    Text("Durchschnittliche Versuche: \(stat.averageGuesses)")
                 }
                 
-                Text("Erstes Mal gespielt: \(stat.firstPlayed?.formatted(date: .long, time: .omitted) ?? "Not played yet")")
-                Text("Letztes Mal gespielt: \(stat.lastPlayed?.formatted(date: .long, time: .omitted) ?? "Not played yet")")
+                Text("Erstes Mal gespielt: \(stat.firstPlayed?.formatted(date: .long, time: .omitted) ?? "Noch nicht gespielt")")
+                Text("Letztes Mal gespielt: \(stat.lastPlayed?.formatted(date: .long, time: .shortened) ?? "Noch nicht gespielt")")
+                Text("Du hast \(stat.consecutiveDays) Tage hintereinander gespielt")
                 
                 Section{
                     Chart{

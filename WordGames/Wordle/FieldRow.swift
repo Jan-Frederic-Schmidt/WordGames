@@ -72,5 +72,4 @@ class FieldRow: Identifiable{
         
         return isReal(word.capitalizingFirstLetter())
     }
-    
 }

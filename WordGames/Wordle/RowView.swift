@@ -13,7 +13,7 @@ struct RowView: View {
     @Binding public var outsideChosenWord: ChosenWord
     @Binding public var isSolved: Bool
     @Binding public var isWrong: Bool
-
+    
     var body: some View {
         HStack{
             ForEach(0..<5){number in

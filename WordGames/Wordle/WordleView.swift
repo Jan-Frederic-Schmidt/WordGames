@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WordleView: View {
     @State private var chosenWord = ChosenWord()
-    @State private var rows: Array<FieldRow> = []
+    @State private var rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     @State private var isSolved = false
     @State private var isWrong = false
     
@@ -18,9 +18,10 @@ struct WordleView: View {
     var body: some View {
         NavigationStack{
             VStack(spacing: 40){
-                Text("Versuche: \(chosenWord.guesses)")
+                Text("Versuche: \(5 - chosenWord.guesses)")
                     .font(.largeTitle)
                     .fontWeight(.black)
+                Text("Streak: \(stat.streak)")
                 Text(chosenWord.word)
                 VStack{
                     ForEach(rows){row in
@@ -43,6 +44,7 @@ struct WordleView: View {
                     }
                     stat.lastPlayed = .now
                     stat.timesPlayed += 1
+                    
                     resetGame()
                 }
             } message: {
@@ -60,14 +62,7 @@ struct WordleView: View {
                     resetGame()
                 }
             })
-            .onAppear{
-                rows = createRows()
-            }
         }
-    }
-    
-    func createRows() -> Array<FieldRow>{
-        [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     }
     
     func resetGame(){
@@ -77,7 +72,7 @@ struct WordleView: View {
             fatalError("Couldn't save game")
         }
         
-        rows = createRows()
+        rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
         chosenWord.chooseNewWord()
     }
 }

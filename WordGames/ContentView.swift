@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     @State var statistic: Statistic = getStatistic()
-    
     var body: some View {
         TabView{
             WordleView(stat: $statistic)
@@ -31,6 +30,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
