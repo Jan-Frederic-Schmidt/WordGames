@@ -19,12 +19,12 @@ struct ContentView: View {
             
             StatView(stat: statistic)
                 .tabItem{
-                    Label("Stats", systemImage: "chart.xyaxis.line")
+                    Label("Statistiken", systemImage: "chart.xyaxis.line")
                 }
             
             ProgressView()
                 .tabItem{
-                    Label("Settings", systemImage: "gear")
+                    Label("Einstellungen", systemImage: "gear")
                 }
         }
     }

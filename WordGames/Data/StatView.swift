@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StatView: View {
     
+    @State private var showingExplanation = false
+    
     public var stat:  Statistic
     
     var body: some View {
@@ -23,13 +25,34 @@ struct StatView: View {
                 Text("Letztes Mal gespielt: \(stat.lastPlayed?.formatted(date: .long, time: .shortened) ?? "Noch nicht gespielt")")
                 Text("Du hast \(stat.consecutiveDays) Tage hintereinander gespielt")
                 
-                Section{
-                    Chart{
-                        ForEach(1..<6, id: \.self){number in
-                            BarMark(
-                                x: .value("Wörter, die so viele Versuche gebrauht haben", stat.guessSpread[number]!),
-                                y: .value("Anzahl der Versuche", String(number))
-                            )
+                Section("Benötigte Versuche"){
+                    Group{
+                        if showingExplanation{
+                            ChartExplanation(showingExplanation: $showingExplanation)
+                        } else {
+                            Chart{
+                                ForEach(1..<6, id: \.self){number in
+                                    BarMark(
+                                        x: .value("Wörter, die so viele Versuche gebrauht haben", stat.guessSpread[number]!),
+                                        y: .value("Anzahl der Versuche", String(number))
+                                    )
+                                    
+                                }
+                            }
+                            .chartYAxisLabel("Zahl der Spiele", alignment: .topLeading)
+                            .chartXAxisLabel("Zahl der Versuche")
+                            .foregroundStyle(Color.accentColor)
+                            .overlay(alignment: .topTrailing) {
+                                Button{
+                                    withAnimation{
+                                        showingExplanation = true
+                                    }
+                                } label: {
+                                    Image(systemName: "questionmark.circle")
+                                }
+                                .buttonStyle(.plain)
+                                .font(Font.callout)
+                            }
                         }
                     }
                     .frame(height: 400)
