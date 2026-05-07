@@ -15,3 +15,7 @@ The usage should be obvious from the app itself. In *Wordle* you have to guess a
 7. Clean up the code (definitely needed)
 8. Launch on the App Store?
 9. Sync with iCloud
+
+---
+
+WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
