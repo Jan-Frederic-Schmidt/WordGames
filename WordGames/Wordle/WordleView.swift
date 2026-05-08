@@ -1,85 +1,71 @@
 //
 //  WordleView.swift
-//  Wordle
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 4/20/26.
 //
-
+import Combine
 import SwiftUI
 
 struct WordleView: View {
     @State private var chosenWord = ChosenWord()
-    @State private var rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
-    @State private var isSolved = false
-    @State private var isWrong = false
+    @State private var rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     
     @Binding public var stat: Statistic
     
+    let colorScheme: ColorScheme
+    var backgroundColor: Color {
+        switch colorScheme {
+        case .light:
+            return Color.lightBackground
+        case .dark:
+            return Color.darkBackground
+        default:
+            return Color.lightBackground
+        }
+    }
+    
     var body: some View {
         NavigationStack{
-            ScrollView{
-                VStack(spacing: 40){
-                    Text("Versuche: \(5 - chosenWord.guesses)")
-                        .font(.largeTitle)
-                        .fontWeight(.black)
-                    Text("Streak: \(stat.streak)")
-                    Text(chosenWord.word)
-                    VStack{
-                        ForEach(rows){row in
-                            RowView(Row: row, outsideChosenWord: $chosenWord, isSolved: $isSolved, isWrong: $isWrong)
-                        }
-                        .padding(5)
+            ZStack{
+                backgroundColor
+                    .ignoresSafeArea()
+                ScrollView{
+                    VStack(spacing: 40){
+                        Text("Versuche: \(6 - chosenWord.guesses)")
+                            .font(.largeTitle)
+                            .fontWeight(.black)
+                        Text("Streak: \(stat.streak)")
+//                        Text(chosenWord.word)
+                        
+                        WordleFieldView(rows: $rows, chosenWord: $chosenWord, stat: $stat, resetGame: resetGame)
                     }
+                    .padding(.horizontal, 35)
+                    .frame(maxWidth: .infinity)
                 }
-                .padding(.horizontal, 35)
+                .scrollBounceBehavior(.basedOnSize)
                 .navigationTitle("Wordle")
                 .toolbar{
                     Button("Neues Wort wählen", action: resetGame)
                 }
-                .alert("Das war richtig!", isPresented: $isSolved) {
-                    Button("Ok"){
-                        stat.streak += 1
-                        stat.guessSpread.updateValue(stat.guessSpread[chosenWord.guesses, default: 0 ] + 1, forKey: chosenWord.guesses)
-                        if stat.firstPlayed == nil{
-                            stat.firstPlayed = .now
-                        }
-                        stat.lastPlayed = .now
-                        stat.timesPlayed += 1
-                        
-                        resetGame()
-                    }
-                } message: {
-                    Text("Super, du hast \(chosenWord.word) herausgefunden!")
-                }
-                .alert("Das war leider falsch", isPresented: $isWrong, actions: {
-                    Button("Ok"){
-                        stat.streak = 0
-                        stat.guessSpread.updateValue(stat.guessSpread[chosenWord.guesses, default: 0 ] + 1, forKey: 5)
-                        if stat.firstPlayed == nil{
-                            stat.firstPlayed = .now
-                        }
-                        stat.lastPlayed = .now
-                        stat.timesPlayed += 1
-                        resetGame()
-                    }
-                })
             }
         }
-        .scrollBounceBehavior(.basedOnSize)
     }
     
     func resetGame(){
+        if stat.firstPlayed == nil{
+            stat.firstPlayed = .now
+        }
+        stat.lastPlayed = .now
+        stat.timesPlayed += 1
+        
         if let data = try? JSONEncoder().encode(stat){
             UserDefaults.standard.set(data, forKey: "Statistic")
         } else {
             fatalError("Couldn't save game")
         }
         
-        rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
+        rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
         chosenWord.chooseNewWord()
     }
 }
-
-//#Preview {
-//    WordleView()
-//}

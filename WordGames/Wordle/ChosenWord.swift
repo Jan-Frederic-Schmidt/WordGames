@@ -1,6 +1,6 @@
 //
 //  ChosenWord.swift
-//  Wordle
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 4/15/26.
 //
@@ -15,11 +15,15 @@ struct ChosenWord{
             characterList = Array(word).convertToStrings()
         }
     }
-    var guesses = 0
-    var characterList: Array<String>
-    var isWrong: Bool {
-        guesses >= 5
+    var guesses = 0{
+        didSet{
+            if guesses >= 6{
+                isWrong = true
+            }
+        }
     }
+    var characterList: Array<String>
+    var isWrong = false
     
     init(){
         word = wordList.randomElement()!
@@ -33,5 +37,6 @@ struct ChosenWord{
         }
         word = newWord
         guesses = 0
+        isWrong = false
     }
 }

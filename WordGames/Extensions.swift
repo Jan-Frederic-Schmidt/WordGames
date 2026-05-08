@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  Wordle
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 4/10/2026.
 //
@@ -44,6 +44,16 @@ extension String {
 
     mutating func capitalizeFirstLetter() {
       self = self.capitalizingFirstLetter()
+    }
+}
+
+extension ShapeStyle where Self == Color{
+    static var lightBackground: Color {
+        Color(red: 0.969, green: 0.953, blue: 0.855)
+    }
+    
+    static var darkBackground: Color {
+        Color(red: 0.557, green: 0.471, blue: 0.341)
     }
 }
 

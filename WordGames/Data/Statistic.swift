@@ -1,6 +1,6 @@
 //
 //  Statistic.swift
-//  WordGames
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 5/1/26.
 //
@@ -39,6 +39,7 @@ class Statistic: Codable {
         2: 0,
         3: 0,
         4: 0,
-        5: 0
+        5: 0,
+        6: 0
     ]
 }

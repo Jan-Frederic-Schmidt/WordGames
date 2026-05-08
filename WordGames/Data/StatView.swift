@@ -1,6 +1,6 @@
 //
 //  StatView.swift
-//  WordGames
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 5/1/26.
 //
@@ -12,6 +12,7 @@ struct StatView: View {
     @State private var showingExplanation = false
     
     public var stat:  Statistic
+    public var colorScheme: ColorScheme
     
     var body: some View {
         NavigationStack{
@@ -31,7 +32,7 @@ struct StatView: View {
                             ChartExplanation(showingExplanation: $showingExplanation)
                         } else {
                             Chart{
-                                ForEach(1..<6, id: \.self){number in
+                                ForEach(1..<7, id: \.self){number in
                                     BarMark(
                                         x: .value("Wörter, die so viele Versuche gebrauht haben", stat.guessSpread[number]!),
                                         y: .value("Anzahl der Versuche", String(number))
@@ -51,13 +52,15 @@ struct StatView: View {
                                     Image(systemName: "questionmark.circle")
                                 }
                                 .buttonStyle(.plain)
-                                .font(Font.callout)
+                                .foregroundStyle(Color.accentColor)
                             }
                         }
                     }
                     .frame(height: 400)
                 }
             }
+            .background(colorScheme == .light ? .lightBackground : .darkBackground)
+            .scrollContentBackground(.hidden)
             .navigationTitle("Statistiken")
         }
     }

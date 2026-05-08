@@ -1,6 +1,6 @@
 //
 //  ChartExplenation.swift
-//  WordGames
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 5/3/26.
 //
@@ -13,7 +13,7 @@ struct ChartExplanation: View {
     
     var body: some View {
                 ScrollView{
-                    Text("Das Diagramm zeigt, wie oft du bisher wie viele Versuche gebraucht hast. Die y-Achse zeigt die mögliche Anzahl an Versuchen (1-5) und die x-Achse zeigt, wie oft die entsprechend Anzahl benötigt wurde. Am besten ist also ein großer Balken bei \"1\" und am schlechtesten einer bei \"5\". Der Durchschnitt zeigt, wie viele Versuche du durchschnittlich brauchst.")
+                    Text("Das Diagramm zeigt, wie oft du bisher wie viele Versuche gebraucht hast. Die y-Achse zeigt die mögliche Anzahl an Versuchen (1-5) und die x-Achse zeigt, wie oft die entsprechend Anzahl benötigt wurde. Am besten ist also ein großer Balken bei \"1\" und am schlechtesten einer bei \"6\".")
                 }
                 .scrollBounceBehavior(.basedOnSize)
                 .padding()
@@ -26,7 +26,7 @@ struct ChartExplanation: View {
                     Image(systemName: "xmark")
                 }
                 .buttonStyle(.plain)
-                .font(.callout)
+                .foregroundStyle(Color.accentColor)
             }
     }
 }
