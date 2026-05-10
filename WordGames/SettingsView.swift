@@ -10,11 +10,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding public var colorScheme: ColorScheme?
     @Binding public var language: Locale.Language
-    @Binding public var stat: Statistic
     
-    let colorSchemes: Array<ColorScheme?> = [nil, .light, .dark]
+    @AppStorage("colorScheme") var storedColorScheme = 0
     
     var body: some View {
         NavigationStack{
@@ -26,15 +24,18 @@ struct SettingsView: View {
                 }
                 
                 Section{
-                    Picker(selection: $colorScheme){
-                        ForEach(colorSchemes, id: \.self){
+                    Picker(selection: $storedColorScheme){
+                        ForEach(0..<3){
                             switch $0{
-                            case .light:
-                                return Text("Hell")
-                            case .dark:
-                                return Text("Dunkel")
+                            case 0:
+                                Text("Gerät")
+                                    .tag($0)
+                            case 1:
+                                Text("Hell")
+                                    .tag($0)
                             default:
-                                return Text("Gerät")
+                                Text("Dunkel")
+                                    .tag($0)
                             }
                         }
                     } label: {
@@ -51,13 +52,10 @@ struct SettingsView: View {
                     } label: {
                         Label("Wähle eine Sprache aus", systemImage: "translate")
                     }
+                    
                     Button(role: .destructive){
-                        stat = Statistic()
-                        if let data = try? JSONEncoder().encode(stat){
-                            UserDefaults.standard.set(data, forKey: "Statistic")
-                        } else {
-                            fatalError("Couldn't save game")
-                        }
+                        UserDefaults.standard.removeObject(forKey: "Statistic")
+                        stat.statistic = getStatistic()
                     } label: {
                         Label("Alle Daten löschen", systemImage: "trash")
                             .foregroundStyle(.red)

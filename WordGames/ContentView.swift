@@ -8,30 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.colorScheme) var deviceColorScheme
-    @State private var colorScheme: ColorScheme?
     
     @State private var language = Locale.current.language
     
-    @State var statistic: Statistic = getStatistic()
     var body: some View {
         TabView{
-            WordleView(stat: $statistic, colorScheme: colorScheme ?? deviceColorScheme)
+            WordleView()
                 .tabItem{
                     Label("Wordle", systemImage: "w.square.fill")
                 }
             
-            StatView(stat: statistic, colorScheme: colorScheme ?? deviceColorScheme)
+            StatView()
                 .tabItem{
                     Label("Statistiken", systemImage: "chart.xyaxis.line")
                 }
             
-            SettingsView(colorScheme: $colorScheme, language: $language, stat: $statistic)
+            SettingsView(language: $language)
                 .tabItem{
                     Label("Einstellungen", systemImage: "gear")
                 }
         }
-        .preferredColorScheme(colorScheme)
     }
 }
 

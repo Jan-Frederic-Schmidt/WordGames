@@ -11,9 +11,7 @@ struct WordleView: View {
     @State private var chosenWord = ChosenWord()
     @State private var rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     
-    @Binding public var stat: Statistic
-    
-    let colorScheme: ColorScheme
+    @Environment(\.colorScheme) var colorScheme
     var backgroundColor: Color {
         switch colorScheme {
         case .light:
@@ -35,10 +33,10 @@ struct WordleView: View {
                         Text("Versuche: \(6 - chosenWord.guesses)")
                             .font(.largeTitle)
                             .fontWeight(.black)
-                        Text("Streak: \(stat.streak)")
+                        Text("Streak: \(stat.statistic.streak)")
 //                        Text(chosenWord.word)
                         
-                        WordleFieldView(rows: $rows, chosenWord: $chosenWord, stat: $stat, resetGame: resetGame)
+                        WordleFieldView(rows: $rows, chosenWord: $chosenWord, resetGame: resetGame)
                     }
                     .padding(.horizontal, 35)
                     .frame(maxWidth: .infinity)
@@ -53,13 +51,13 @@ struct WordleView: View {
     }
     
     func resetGame(){
-        if stat.firstPlayed == nil{
-            stat.firstPlayed = .now
+        if stat.statistic.firstPlayed == nil{
+            stat.statistic.firstPlayed = .now
         }
-        stat.lastPlayed = .now
-        stat.timesPlayed += 1
+        stat.statistic.lastPlayed = .now
+        stat.statistic.timesPlayed += 1
         
-        if let data = try? JSONEncoder().encode(stat){
+        if let data = try? JSONEncoder().encode(stat.statistic){
             UserDefaults.standard.set(data, forKey: "Statistic")
         } else {
             fatalError("Couldn't save game")

@@ -7,10 +7,24 @@
 import SwiftUI
 
 @main
-struct WordGamesApp: App {
+struct WordleApp: App {
+    @AppStorage("colorScheme") var storedColorScheme = 0
+    
+    var colorScheme: ColorScheme? {
+        switch storedColorScheme{
+        case 0:
+            return nil
+        case 1:
+            return .light
+        default:
+            return .dark
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(colorScheme)
         }
     }
 }

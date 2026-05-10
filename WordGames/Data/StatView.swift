@@ -11,20 +11,19 @@ struct StatView: View {
     
     @State private var showingExplanation = false
     
-    public var stat:  Statistic
-    public var colorScheme: ColorScheme
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationStack{
             Form{
                 Section{
-                    Text("\(stat.timesPlayed) Mal gespielt")
-                    Text("Du hast eine Streak von \(stat.streak)")
+                    Text("\(stat.statistic.timesPlayed) Mal gespielt")
+                    Text("Du hast eine Streak von \(stat.statistic.streak)")
                 }
                 
-                Text("Erstes Mal gespielt: \(stat.firstPlayed?.formatted(date: .long, time: .omitted) ?? "Noch nicht gespielt")")
-                Text("Letztes Mal gespielt: \(stat.lastPlayed?.formatted(date: .long, time: .shortened) ?? "Noch nicht gespielt")")
-                Text("Du hast \(stat.consecutiveDays) Tage hintereinander gespielt")
+                Text("Erstes Mal gespielt: \(stat.statistic.firstPlayed?.formatted(date: .long, time: .omitted) ?? "Noch nicht gespielt")")
+                Text("Letztes Mal gespielt: \(stat.statistic.lastPlayed?.formatted(date: .long, time: .shortened) ?? "Noch nicht gespielt")")
+                Text("Du hast \(stat.statistic.consecutiveDays) Tage hintereinander gespielt")
                 
                 Section("Benötigte Versuche"){
                     Group{
@@ -34,7 +33,7 @@ struct StatView: View {
                             Chart{
                                 ForEach(1..<7, id: \.self){number in
                                     BarMark(
-                                        x: .value("Wörter, die so viele Versuche gebrauht haben", stat.guessSpread[number]!),
+                                        x: .value("Wörter, die so viele Versuche gebrauht haben", stat.statistic.guessSpread[number]!),
                                         y: .value("Anzahl der Versuche", String(number))
                                     )
                                     

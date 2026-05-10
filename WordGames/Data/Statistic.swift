@@ -43,3 +43,10 @@ class Statistic: Codable {
         6: 0
     ]
 }
+
+@Observable
+class StatisticState{
+    var statistic = getStatistic()
+}
+
+var stat = StatisticState()

@@ -9,10 +9,8 @@ import SwiftUI
 import Combine
 
 struct WordleFieldView: View {
-    
     @Binding public var rows: Array<FieldRow>
     @Binding public var chosenWord: ChosenWord
-    @Binding public var stat: Statistic
     @State private var isSolved = false
     @State private var isWrong = false
     
@@ -48,8 +46,8 @@ struct WordleFieldView: View {
         .padding(5)
         .alert("Das war richtig!", isPresented: $isSolved) {
             Button("Ok"){
-                stat.streak += 1
-                stat.guessSpread.updateValue(stat.guessSpread[chosenWord.guesses, default: 0 ] + 1, forKey: chosenWord.guesses)
+                stat.statistic.streak += 1
+                stat.statistic.guessSpread.updateValue(stat.statistic.guessSpread[chosenWord.guesses, default: 0 ] + 1, forKey: chosenWord.guesses)
                 resetGame()
             }
         } message: {
@@ -57,7 +55,7 @@ struct WordleFieldView: View {
         }
         .alert("Das war leider falsch! \(chosenWord.word) war das Wort!", isPresented: $isWrong, actions: {
             Button("Ok"){
-                stat.streak = 0
+                stat.statistic.streak = 0
                 resetGame()
             }
         })
