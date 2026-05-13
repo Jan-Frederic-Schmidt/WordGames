@@ -23,7 +23,7 @@ struct ContentView: View {
                     Label("Statistiken", systemImage: "chart.xyaxis.line")
                 }
             
-            SettingsView(language: $language)
+            SettingsView()
                 .tabItem{
                     Label("Einstellungen", systemImage: "gear")
                 }

@@ -10,8 +10,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding public var language: Locale.Language
-    
+    @AppStorage("languageIdentifier") var languageIdentifier = "auto"
     @AppStorage("colorScheme") var storedColorScheme = 0
     
     var body: some View {
@@ -42,13 +41,15 @@ struct SettingsView: View {
                         Label("Wähle ein Farbscheme aus", systemImage: "paintpalette")
                     }
                     
-                    Picker(selection: $language){
+                    Picker(selection: $languageIdentifier){
+                        Text("Gerät")
+                            .tag("auto")
                         Text("Deutsch")
-                            .tag(Locale.Language(identifier: "de"))
+                            .tag("de")
                         Text("English")
-                            .tag(Locale.Language(identifier: "en"))
+                            .tag("en")
                         Text("Français")
-                            .tag(Locale.Language(identifier: "fr"))
+                            .tag("fr")
                     } label: {
                         Label("Wähle eine Sprache aus", systemImage: "translate")
                     }

@@ -54,13 +54,13 @@ class FieldRow: Identifiable{
     }
     
     //End of AI
-    func isRealWord() -> Bool{
+    func makeRealWord() -> String{
         var word = ""
         
         for field in fields{
             word += field.guess
         }
         
-        return isReal(word.capitalizingFirstLetter())
+        return word
     }
 }

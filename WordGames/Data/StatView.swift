@@ -28,7 +28,7 @@ struct StatView: View {
                 Section("Benötigte Versuche"){
                     Group{
                         if showingExplanation{
-                            ChartExplanation(showingExplanation: $showingExplanation)
+                            ChartExplanationView()
                         } else {
                             Chart{
                                 ForEach(1..<7, id: \.self){number in
@@ -42,20 +42,21 @@ struct StatView: View {
                             .chartYAxisLabel("Zahl der Spiele", alignment: .topLeading)
                             .chartXAxisLabel("Zahl der Versuche")
                             .foregroundStyle(Color.accentColor)
-                            .overlay(alignment: .topTrailing) {
-                                Button{
-                                    withAnimation{
-                                        showingExplanation = true
-                                    }
-                                } label: {
-                                    Image(systemName: "questionmark.circle")
-                                }
-                                .buttonStyle(.plain)
-                                .foregroundStyle(Color.accentColor)
-                            }
                         }
                     }
                     .frame(height: 400)
+                    .overlay(alignment: .topTrailing) {
+                        Button{
+                            withAnimation{
+                                showingExplanation.toggle()
+                            }
+                        } label: {
+                            Image(systemName: showingExplanation ? "xmark" : "questionmark.circle")
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(Color.accentColor)
+                    }
+
                 }
             }
             .background(colorScheme == .light ? .lightBackground : .darkBackground)

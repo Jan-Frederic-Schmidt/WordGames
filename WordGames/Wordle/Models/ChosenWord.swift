@@ -9,34 +9,27 @@ import Foundation
 import SwiftUI
 
 struct ChosenWord{
-    var wordList = Bundle.main.chooseWord(for: "wordlist.txt", withLenght: 5)
+    var wordList: Set<String>
     var word: String {
         didSet{
             characterList = Array(word).convertToStrings()
         }
     }
-    var guesses = 0{
-        didSet{
-            if guesses >= 6{
-                isWrong = true
-            }
-        }
-    }
+    var guesses = 0
     var characterList: Array<String>
-    var isWrong = false
     
-    init(){
+    init(_ wordlist: String){
+        wordList = Bundle.main.chooseWord(for: wordlist, withLenght: 5)
         word = wordList.randomElement()!
         characterList = Array(word).convertToStrings()
     }
     
     mutating func chooseNewWord(){
-        var newWord = Bundle.main.chooseWord(for: "wordlist.txt", withLenght: 5).randomElement()!
+        var newWord = wordList.randomElement()!
         while newWord == word{
-            newWord = Bundle.main.chooseWord(for: "wordlist.txt", withLenght: 5).randomElement()!
+            newWord = wordList.randomElement()!
         }
         word = newWord
         guesses = 0
-        isWrong = false
     }
 }

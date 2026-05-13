@@ -8,8 +8,6 @@ import Combine
 import SwiftUI
 
 struct WordleView: View {
-    @State private var chosenWord = ChosenWord()
-    @State private var rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
     
     @Environment(\.colorScheme) var colorScheme
     var backgroundColor: Color {
@@ -23,6 +21,8 @@ struct WordleView: View {
         }
     }
     
+    @ObservedObject private var viewModel = ViewModel()
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -30,13 +30,13 @@ struct WordleView: View {
                     .ignoresSafeArea()
                 ScrollView{
                     VStack(spacing: 40){
-                        Text("Versuche: \(6 - chosenWord.guesses)")
+                        Text("Streak: \(stat.statistic.streak)")
                             .font(.largeTitle)
                             .fontWeight(.black)
-                        Text("Streak: \(stat.statistic.streak)")
-//                        Text(chosenWord.word)
+                            .padding(.top, 75)
+//                        Text(viewModel.chosenWord.word)
                         
-                        WordleFieldView(rows: $rows, chosenWord: $chosenWord, resetGame: resetGame)
+                        WordleFieldView(resetGame: viewModel.resetGame, rows: viewModel.rows, chosenWord: viewModel.chosenWord)
                     }
                     .padding(.horizontal, 35)
                     .frame(maxWidth: .infinity)
@@ -44,26 +44,9 @@ struct WordleView: View {
                 .scrollBounceBehavior(.basedOnSize)
                 .navigationTitle("Wordle")
                 .toolbar{
-                    Button("Neues Wort wählen", action: resetGame)
+                    Button("Neues Wort wählen", action: viewModel.resetGame)
                 }
             }
         }
-    }
-    
-    func resetGame(){
-        if stat.statistic.firstPlayed == nil{
-            stat.statistic.firstPlayed = .now
-        }
-        stat.statistic.lastPlayed = .now
-        stat.statistic.timesPlayed += 1
-        
-        if let data = try? JSONEncoder().encode(stat.statistic){
-            UserDefaults.standard.set(data, forKey: "Statistic")
-        } else {
-            fatalError("Couldn't save game")
-        }
-        
-        rows = [FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow(), FieldRow()]
-        chosenWord.chooseNewWord()
     }
 }
