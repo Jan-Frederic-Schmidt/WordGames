@@ -9,12 +9,13 @@ The usage should be obvious from the app itself. In *Wordle* you have to guess a
 1. Create the basics of *Wordle* ✅
 2. Actually check the results ✅
 3. Save data ✅
-4. Create the settings pane 🔜
+4. Create the settings pane ✅
 5. Check the word list ✅
 6. Get localization to work
-7. Clean up the code (definitely needed)
-8. Launch on the App Store?
+7. Clean up the code (definitely needed) ✅
+8. Share Wordle instances via ShareLink
 9. Sync with iCloud
+10. Test on a real device
 
 ---
 
