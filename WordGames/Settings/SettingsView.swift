@@ -17,9 +17,9 @@ struct SettingsView: View {
         NavigationStack{
             Form{
                 NavigationLink{
-                    //go to somewhere
+                    GameRulesView()
                 } label: {
-                    Label("Spielregeln", systemImage: "info.circle")
+                    Label("Spielregeln", systemImage: "text.page")
                 }
                 
                 Section{
@@ -62,9 +62,18 @@ struct SettingsView: View {
                             .foregroundStyle(.red)
                     }
                 }
+                
+                Section {
+                    NavigationLink {
+                        AboutView()
+                    } label: {
+                        Label("Über die App", systemImage: "info.circle")
+                    }
+                }
             }
             .foregroundStyle(.primary)
             .navigationTitle("Einstellungen")
         }
     }
 }
+

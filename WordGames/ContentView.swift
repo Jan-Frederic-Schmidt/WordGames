@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var language = Locale.current.language
-    
     var body: some View {
         TabView{
             WordleView()

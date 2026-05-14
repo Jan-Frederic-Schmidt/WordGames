@@ -1,6 +1,6 @@
 //
 //  CurrentLanguage.swift
-//  WordGames
+//  WordGames © 2026 by Jan Frédéric Schmidt is licensed under CC BY-NC-ND 4.0
 //
 //  Created by Jan Schmidt on 5/12/26.
 //

@@ -15,7 +15,6 @@ struct ChosenWord{
             characterList = Array(word).convertToStrings()
         }
     }
-    var guesses = 0
     var characterList: Array<String>
     
     init(_ wordlist: String){
@@ -30,6 +29,5 @@ struct ChosenWord{
             newWord = wordList.randomElement()!
         }
         word = newWord
-        guesses = 0
     }
 }

@@ -21,7 +21,7 @@ struct WordleView: View {
         }
     }
     
-    @ObservedObject private var viewModel = ViewModel()
+    @State private var wordleGrid = WordleFieldView()
     
     var body: some View {
         NavigationStack{
@@ -36,7 +36,7 @@ struct WordleView: View {
                             .padding(.top, 75)
 //                        Text(viewModel.chosenWord.word)
                         
-                        WordleFieldView(resetGame: viewModel.resetGame, rows: viewModel.rows, chosenWord: viewModel.chosenWord)
+                        wordleGrid
                     }
                     .padding(.horizontal, 35)
                     .frame(maxWidth: .infinity)
@@ -44,7 +44,7 @@ struct WordleView: View {
                 .scrollBounceBehavior(.basedOnSize)
                 .navigationTitle("Wordle")
                 .toolbar{
-                    Button("Neues Wort wählen", action: viewModel.resetGame)
+                    Button("Neues Wort wählen", action: wordleGrid.gameState.resetGame)
                 }
             }
         }
